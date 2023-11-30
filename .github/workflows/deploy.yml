@@ -24,4 +24,12 @@ jobs:
          username: ${{ secrets.DAYLINK_USERNAME }}
          password: ${{ secrets.DAYLINK_PASSWORD }}
          port: 22
-         script: 'cd /var/www/html/Nextjs-Nodejs-Blog-Page && git pull'
+         script: |
+          cd /var/www/html/Nextjs-Nodejs-Blog-Page || exit
+          git pull || exit
+          cd client || exit
+          npm install || exit
+          cd .. || exit
+          cd server || exit
+          npm install || exit
+          pm2 restart all || exit
